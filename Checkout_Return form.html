@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout/Return</title>
+  <link rel="stylesheet" href="../Checkout/Css/Box.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+  </style>
+</head>
+<body>
+
+<h1>Checkout/Return Form</h1>
+<div class="Chk/Rtn">
+<form
+  class="fs-form fs-layout__2-column"
+  target="_top"
+  method="POST"
+>
+  <!-- Radio Button -->
+  <p>Form Type:</p>
+  <input type="radio" id="button1" name="setting" value="button1" onchange="myFunction()">
+  <label for="button1">Checkout</label>
+
+  <input type="radio" id="button2" name="setting" value="button2" onchange="myFunction()">
+  <label for="button2">Return</label><br><br>
+
+  <!-- Customer Account  -->
+  <label for="full-name">Account Name:</label><br><br>
+  <input type="text" id="full-name" name="full-name"><br><br>
+
+  <!-- Type of Bike -->
+  <label for="event-type">Bike Type:</label><br><br>
+  <select id="event-type" name="event-type">
+    <option>Motorcycle</option>
+    <option>Motorcycle Trike</option>
+    <option>Electric Motorcycle</option>
+  </select><br><br>
+
+  <!-- How many miles -->
+  <label for="email">Miles Traveled:</label><br><br>
+  <input type="text" id="email" name="email"><br><br>
+
+  <!-- Condition -->
+  <label for="menu-type">Condition:</label><br><br>
+  <select id="menu-type" name="menu-type">
+    <option>Excellent</option>
+    <option>Good</option>
+    <option>Fair</option>
+    <option>Poor</option>
+    <option>Bad</option>
+  </select><br><br>
+
+  <!-- Hidden textbox -->
+  <div class="return-box" id="return-box" style="display: none;">
+    <label for="return-reason">Return Inspection Documentation:</label><br><br>
+    <textarea id="return-reason" name="return-reason"></textarea><br><br>
+  </div>
+
+  <!-- Customer Account  -->
+  <label for="full-name">Bike ID:</label><br><br>
+  <input type="text"  name="full-name"><br><br>
+
+  <button type="submit">Submit</button>
+  <script>
+    function myFunction() {
+      var button2 = document.getElementById("button2");
+      var x = document.getElementById("return-box");
+
+      if (button2.checked == true) {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
+</form>
+</div>
+</body>
+</html>
