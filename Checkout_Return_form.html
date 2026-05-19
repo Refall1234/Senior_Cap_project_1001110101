@@ -21,11 +21,7 @@
   
 <h1>Checkout/Return Form</h1>
 <div class="Chk/Rtn">
-<form
-  class="fs-form fs-layout__2-column"
-  target="_top"
-  method="POST"
->
+<form id="checkoutForm">
   <!-- Radio Button -->
   <p>Form Type:</p>
   <input type="radio" id="button1" name="setting" value="button1" onchange="myFunction()">
@@ -47,8 +43,8 @@
   </select><br><br>
 
   <!-- How many miles -->
-  <label for="email">Miles Traveled:</label><br><br>
-  <input type="text" id="email" name="email"><br><br>
+  <label for="miles">Miles Traveled:</label><br><br>
+  <input type="text" id="miles" name="miles"><br><br>
 
   <!-- Condition -->
   <label for="menu-type">Condition:</label><br><br>
@@ -68,7 +64,7 @@
 
   <!-- Customer Account  -->
   <label for="full-name">Bike ID:</label><br><br>
-  <input type="text"  name="full-name"><br><br>
+  <input type="text" id="bikeId name="full-name"><br><br>
 
   <button type="submit">Submit</button>
   <script>
@@ -82,6 +78,32 @@
         x.style.display = "none";
       }
     }
+
+    //submission of data to nodejs
+    document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = {
+            type: document.querySelector('input[name="setting"]:checked')?.value,
+            accountName: document.getElementById("full-name").value,
+            bikeType: document.getElementById("event-type").value,
+            miles: document.getElementById("miles").value,
+            condition: document.getElementById("menu-type").value,
+            bikeId: document.getElementById("bikeId").value,
+            returnNotes: document.getElementById("return-reason").value
+        };
+
+        await fetch("/checkout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        alert("Submission saved!");
+  }); 
+
   </script>
 </form>
 </div>
