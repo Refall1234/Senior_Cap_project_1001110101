@@ -95,6 +95,37 @@
 }
   </style>
 </head>
+<script>
+async function loadBikes() {
+    try {
+        const response = await fetch('/bikes');
+        const bikes = await response.json();
+
+        const tableBody = document.getElementById('bikeTableBody');
+
+        tableBody.innerHTML = '';
+
+        bikes.forEach(bike => {
+            const row = `
+                <tr>
+                    <td>${bike.id}</td>
+                    <td>${bike.bike_name}</td>
+                    <td>${bike.type}</td>
+                    <td>${bike.condition}</td>
+                    <td>${bike.status}</td>
+                </tr>
+            `;
+
+            tableBody.innerHTML += row;
+        });
+
+    } catch (error) {
+        console.error('Error loading bikes:', error);
+    }
+}
+
+loadBikes();
+</script>
 <body>
 <ul class="navbar">
   <li class="dropdown">
@@ -108,23 +139,20 @@
 <h1>Database View</h1>
 
 <div class="div1">
-  <table>
+<table>
+  <thead>
     <tr>
-      <th>Company</th>
-      <th>Contact</th>
-      <th>Country</th>
+      <th>ID</th>
+      <th>Bike Name</th>
+      <th>Type</th>
+      <th>Condition</th>
+      <th>Status</th>
     </tr>
-    <tr>
-      <td>Alfreds Futterkiste</td>
-      <td>Maria Anders</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <td>Centro comercial Moctezuma</td>
-      <td>Francisco Chang</td>
-      <td>Mexico</td>
-    </tr>
-  </table>
+  </thead>
+
+  <tbody id="bikeTableBody">
+  </tbody>
+</table>
 </div>
 
 </body>
