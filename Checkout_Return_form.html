@@ -2,110 +2,293 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!-- Page title shown in browser tab -->
   <title>Checkout/Return</title>
-  <link rel="stylesheet" href="Css/Box.css">
+
+  <!-- External stylesheet (if you have shared styles) -->
+  <link rel="stylesheet" href="../Box.css">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #dfe9f3, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 25px 0;
+      color: #2c3e50;
+    }
+
+    .navbar {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #38444d;
+    }
+
+    .navbar li {
+      float: left;
+    }
+
+    .navbar li a,
+    .navbar .dropbtn {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .navbar li a:hover,
+    .navbar .dropdown:hover .dropbtn {
+      background-color: red;
+    }
+
+    .navbar li.dropdown {
+      display: inline-block;
+    }
+
+    .navbar .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 8px;
+    }
+
+    .navbar .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .navbar .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .navbar .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .Chk\/Rtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+
+    #checkoutForm {
+      background: white;
+      padding: 35px;
+      width: 420px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease;
+    }
+
+    #checkoutForm:hover {
+      transform: translateY(-3px);
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #3498db;
+      outline: none;
+      box-shadow: 0 0 8px rgba(52,152,219,0.4);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    label,
+    p {
+      font-weight: bold;
+      color: #34495e;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(to right, #3498db, #2ecc71);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
   </style>
 </head>
+
 <body>
+
+<!-- ========================= NAVBAR ========================= -->
 <ul class="navbar">
+
+  <!-- Dropdown menu container -->
   <li class="dropdown">
+
+    <!-- Dropdown button -->
     <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+
+    <!-- Dropdown links -->
     <div class="dropdown-content">
-      <a href="https://refall1234.github.io/Senior_Cap_project_1001110101/index.html">Database View</a>
-      <a href="https://refall1234.github.io/Senior_Cap_project_1001110101/Checkout_Return_form.html">Checkout/Return Form</a>
+
+      <!-- Link to database page -->
+      <a href="index.html">Database View</a>
+
+      <!-- Link to this form page -->
+      <a href="Checkout-Return_Form.html">Checkout/Return Form</a>
+
     </div>
   </li>
 </ul>
-  
+
+<!-- ========================= PAGE TITLE ========================= -->
 <h1>Checkout/Return Form</h1>
+
+<!-- ========================= FORM WRAPPER ========================= -->
 <div class="Chk/Rtn">
-<form id="checkoutForm">
-  <!-- Radio Button -->
-  <p>Form Type:</p>
-  <input type="radio" id="button1" name="setting" value="button1" onchange="myFunction()">
-  <label for="button1">Checkout</label>
 
-  <input type="radio" id="button2" name="setting" value="button2" onchange="myFunction()">
-  <label for="button2">Return</label><br><br>
+  <!-- Main form start -->
+  <form id="checkoutForm">
 
-  <!-- Customer Account  -->
-  <label for="full-name">Account Name:</label><br><br>
-  <input type="text" id="full-name" name="full-name"><br><br>
+    <!-- ========================= FORM TYPE ========================= -->
+    <p>Form Type:</p>
 
-  <!-- Type of Bike -->
-  <label for="event-type">Bike Type:</label><br><br>
-  <select id="event-type" name="event-type">
-    <option>Motorcycle</option>
-    <option>Motorcycle Trike</option>
-    <option>Electric Motorcycle</option>
-  </select><br><br>
+    <!-- Checkout option -->
+    <input type="radio" id="button1" name="setting" value="checkout" onchange="myFunction()">
+    <label for="button1">Checkout</label>
 
-  <!-- How many miles -->
-  <label for="miles">Miles Traveled:</label><br><br>
-  <input type="text" id="miles" name="miles"><br><br>
+    <!-- Return option -->
+    <input type="radio" id="button2" name="setting" value="return" onchange="myFunction()">
+    <label for="button2">Return</label>
 
-  <!-- Condition -->
-  <label for="menu-type">Condition:</label><br><br>
-  <select id="menu-type" name="menu-type">
-    <option>Excellent</option>
-    <option>Good</option>
-    <option>Fair</option>
-    <option>Poor</option>
-    <option>Bad</option>
-  </select><br><br>
+    <br><br>
 
-  <!-- Hidden textbox -->
-  <div class="return-box" id="return-box" style="display: none;">
-    <label for="return-reason">Return Inspection Documentation:</label><br><br>
-    <textarea id="return-reason" name="return-reason"></textarea><br><br>
-  </div>
+    <!-- ========================= ACCOUNT NAME ========================= -->
+    <label for="full-name">Account Name:</label><br><br>
+    <input type="text" id="full-name" name="full-name"><br><br>
 
-  <!-- Customer Account  -->
-  <label for="full-name">Bike ID:</label><br><br>
-  <input type="text" id="bikeId name="full-name"><br><br>
+    <!-- ========================= BIKE TYPE ========================= -->
+    <label for="event-type">Bike Type:</label><br><br>
+    <select id="event-type" name="event-type">
+      <option>Motorcycle</option>
+      <option>Motorcycle Trike</option>
+      <option>Electric Motorcycle</option>
+    </select><br><br>
 
-  <button type="submit">Submit</button>
-  <script>
-    function myFunction() {
-      var button2 = document.getElementById("button2");
-      var x = document.getElementById("return-box");
+    <!-- ========================= MILES ========================= -->
+    <label for="miles">Miles Traveled:</label><br><br>
+    <input type="text" id="miles" name="miles"><br><br>
 
-      if (button2.checked == true) {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    }
+    <!-- ========================= CONDITION ========================= -->
+    <label for="menu-type">Condition:</label><br><br>
+    <select id="menu-type" name="menu-type">
+      <option>Excellent</option>
+      <option>Good</option>
+      <option>Fair</option>
+      <option>Poor</option>
+      <option>Bad</option>
+    </select><br><br>
 
-    //submission of data to nodejs
-    document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
+    <!-- ========================= RETURN NOTES ========================= -->
+    <div class="return-box" id="return-box" style="display: none;">
 
-        const formData = {
-            type: document.querySelector('input[name="setting"]:checked')?.value,
-            accountName: document.getElementById("full-name").value,
-            bikeType: document.getElementById("event-type").value,
-            miles: document.getElementById("miles").value,
-            condition: document.getElementById("menu-type").value,
-            bikeId: document.getElementById("bikeId").value,
-            returnNotes: document.getElementById("return-reason").value
-        };
+      <!-- Return inspection label -->
+      <label for="return-reason">Return Inspection Documentation:</label><br><br>
 
-        await fetch("/checkout", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        });
+      <!-- Return notes input -->
+      <textarea id="return-reason" name="return-reason"></textarea><br><br>
 
-        alert("Submission saved!");
-  }); 
+    </div>
 
-  </script>
-</form>
+    <!-- ========================= BIKE ID ========================= -->
+    <label for="bikeId">Bike ID:</label><br><br>
+    <input type="text" id="bikeId" name="bikeId"><br><br>
+
+    <!-- Submit button -->
+    <button type="submit">Submit</button>
+
+  </form>
 </div>
+
+<script>
+
+  // ========================= TOGGLE RETURN BOX =========================
+  function myFunction() {
+    var button2 = document.getElementById("button2");
+    var x = document.getElementById("return-box");
+
+    if (button2.checked == true) {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  // ========================= FORM SUBMISSION =========================
+  document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Collect form data
+    const formData = {
+      type: document.querySelector('input[name="setting"]:checked')?.value,
+      accountName: document.getElementById("full-name").value,
+      bikeType: document.getElementById("event-type").value,
+      miles: document.getElementById("miles").value,
+      condition: document.getElementById("menu-type").value,
+      bikeId: document.getElementById("bikeId").value,
+      returnNotes: document.getElementById("return-reason").value
+    };
+
+    // Send data to backend
+    await fetch("/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+
+    // Confirmation message
+    alert("Submission saved!");
+  });
+
+</script>
+
 </body>
 </html>
