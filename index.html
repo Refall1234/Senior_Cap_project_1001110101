@@ -3,156 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <title>Database View</title>
+
   <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #eef2f3, #ffffff);
+    }
+
     h1 {
       text-align: center;
       padding: 25px 0;
+      color: #2c3e50;
     }
 
-    .div1 {
-      width: 900px;
-      height: 600px;
-      border: 8px solid black;
-      margin: 0 auto; /* Centers the box */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Shadow around box */
+    /* NAVBAR */
+    .navbar {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #2c3e50;
+    }
+
+    .navbar li {
+      float: left;
+    }
+
+    .navbar li a,
+    .navbar .dropbtn {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .navbar li a:hover,
+    .navbar .dropdown:hover .dropbtn {
+      background-color: #e74c3c;
+    }
+
+    .navbar li.dropdown {
+      display: inline-block;
+    }
+
+    .navbar .dropdown-content {
+      display: none;
+      position: absolute;
       background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
+    .navbar .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .navbar .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .navbar .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* TABLE CONTAINER */
+    .div1 {
+      width: 90%;
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      overflow-x: auto;
+    }
+
+    /* TABLE */
     table {
       width: 100%;
       border-collapse: collapse;
-    }
-
-    table, td {
-      border: 1px solid grey;
+      min-width: 900px;
     }
 
     th {
-      border: 1px solid darkred;
-    }
-
-    th, td {
-      padding: 8px;
+      background: hsl(0, 70%, 47%);
+      color: white;
+      padding: 12px;
       text-align: left;
     }
 
-    .navbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #38444d;
-}
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
 
-.navbar li {
-  float: left;
-}
+    tr:hover {
+      background-color: #f5f5f5;
+      transition: 0.2s;
+    }
 
-.navbar li a,
-.navbar .dropbtn {
-  display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+    /* DELETE BUTTON */
+    button {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-.navbar li a:hover,
-.navbar .dropdown:hover .dropbtn {
-  background-color: red;
-}
-
-.navbar li.dropdown {
-  display: inline-block;
-}
-
-.navbar .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.navbar .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.navbar .dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-.navbar .dropdown:hover .dropdown-content {
-  display: block;
-}
+    button:hover {
+      background: #c0392b;
+      transform: scale(1.05);
+    }
   </style>
 </head>
+
 <script>
-async function loadBikes() {
+async function loadCheckouts() {
     try {
-        const response = await fetch('/bikes');
-        const bikes = await response.json();
+        const response = await fetch('/checkouts');
+        const data = await response.json();
 
-        const tableBody = document.getElementById('bikeTableBody');
+        const table = document.getElementById('bikeTableBody');
+        table.innerHTML = "";
 
-        tableBody.innerHTML = '';
-
-        bikes.forEach(bike => {
-            const row = `
+        data.forEach(row => {
+            table.innerHTML += `
                 <tr>
-                    <td>${bike.id}</td>
-                    <td>${bike.bike_name}</td>
-                    <td>${bike.type}</td>
-                    <td>${bike.condition}</td>
-                    <td>${bike.status}</td>
+                    <td>${row.id}</td>
+                    <td>${row.formType}</td>
+                    <td>${row.accountName}</td>
+                    <td>${row.bikeType}</td>
+                    <td>${row.miles}</td>
+                    <td>${row.condition}</td>
+                    <td>${row.bikeId}</td>
+                    <td>${row.returnNotes || ""}</td>
+                    <td>${row.date}</td>
+                    <td>
+                      <button onclick="deleteRow(${row.id})">Delete</button>
+                    </td>
                 </tr>
             `;
-
-            tableBody.innerHTML += row;
         });
 
-    } catch (error) {
-        console.error('Error loading bikes:', error);
+    } catch (err) {
+        console.error(err);
     }
 }
 
-loadBikes();
+async function deleteRow(id) {
+    await fetch(`/checkouts/${id}`, {
+        method: "DELETE"
+    });
+
+    loadCheckouts();
+}
+
+loadCheckouts();
 </script>
+
 <body>
+
+<!-- NAVBAR -->
 <ul class="navbar">
   <li class="dropdown">
     <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
     <div class="dropdown-content">
-      <a href="https://refall1234.github.io/Senior_Cap_project_1001110101/index.html">Database View</a>
-      <a href="https://refall1234.github.io/Senior_Cap_project_1001110101/Checkout_Return_form.html">Checkout/Return Form</a>
+      <a href="index.html">Database View</a>
+      <a href="Checkout-Return_Form.html">Checkout/Return Form</a>
     </div>
   </li>
 </ul>
+
+<!-- PAGE TITLE -->
 <h1>Database View</h1>
 
+<!-- TABLE CONTAINER -->
 <div class="div1">
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Bike Name</th>
-      <th>Type</th>
-      <th>Condition</th>
-      <th>Status</th>
-    </tr>
-  </thead>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Form Type</th>
+        <th>Account Name</th>
+        <th>Bike Type</th>
+        <th>Miles</th>
+        <th>Condition</th>
+        <th>Bike ID</th>
+        <th>Return Notes</th>
+        <th>Date Submitted</th>
+        <th>Action</th>
+      </tr>
+    </thead>
 
-  <tbody id="bikeTableBody">
-  </tbody>
-</table>
+    <tbody id="bikeTableBody"></tbody>
+  </table>
 </div>
 
 </body>
